@@ -4,9 +4,9 @@ const dotenv = require("dotenv");
 
 dotenv.config();
 
-const ETHERSCAN_API_KEY = "1C2M7JIV5MQCG1P2V14KGMCVVXATFNXFPE"
-const INFURA_API_KEY = "48a2d93d350d402986077a1bc364df64";
-const PRIVATE_KEY = "545c1f1bd02ed28f1534c145374b38dac415a03360d374d43ba77b836314cb0d";
+const ETHERSCAN_API_KEY = "<Your etherscan API Key>"
+const INFURA_API_KEY = "<Your Endpoint API Key>";
+const PRIVATE_KEY = "<Your Wallet Private Key>"; 
 
 /** @type import('hardhat/config').HardhatUserConfig */
 module.exports = {
