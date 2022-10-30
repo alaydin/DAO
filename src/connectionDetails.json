@@ -1,0 +1,9 @@
+{
+    "contract_address" : "0x19c9934FD202C4554ce4686826DAEEFad7cD868b",
+    "nft_contract_address" : "0x929F02708394a6c082daE63904160184e9e83b09",
+    "ETHEREUM_NETWORK" : "goerli",
+    "CHAIN_ID" : "0x5",
+    "API_KEY" : "48a2d93d350d402986077a1bc364df64",
+    "MORALIS_API_KEY" : "RXQZKkEr9JXglOkYKz4CueU8KOrpTFgr8t8W08aixO5vzSglqiCqKBq9zS6lkSbl",
+    "SIGNER_PRIVATE_KEY" : "545c1f1bd02ed28f1534c145374b38dac415a03360d374d43ba77b836314cb0d"
+}
