@@ -33,9 +33,7 @@ function Proposal() {
         fromBlock: 0,
         toBlock: 'latest'
       }, function (error, events) {
-        if (!error) {
-          console.log(events);
-        } else {
+        if (error) {
           console.log(error);
         }
       });

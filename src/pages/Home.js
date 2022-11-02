@@ -19,6 +19,10 @@ var daoContract = new web3.eth.Contract(contractABI, connectionDetails.contract_
 
 function Home() {
 
+    function timeout(delay) {
+        return new Promise( res => setTimeout(res, delay) );
+    }
+
     const [proposals, setProposals] = useState();
     const [proposalCount, setProposalCount] = useState(0);
     const [endedProposalCount, setEndedProposalCount] = useState(0);
@@ -28,13 +32,12 @@ function Home() {
 
     useEffect(() => {
         async function getEvents() {
+            //get all created proposals
             var tempArray = await daoContract.getPastEvents('proposalCreated', {
                 fromBlock: 0,
                 toBlock: 'latest'
             }, function (err, events) {
-                if (!err) {
-                    console.log(events);
-                } else {
+                if (err) {
                     console.log(err);
                 }
             });
@@ -62,15 +65,14 @@ function Home() {
                 setProposalCount(tempArray.length);
             }
         };
+        getEvents();
 
         async function getPassRate() {
             var tempArray = await daoContract.getPastEvents('proposalEnded', {
                 fromBlock: 0,
                 toBlock: 'latest'
             }, function (err, events) {
-                if (!err) {
-                    console.log(events);
-                } else {
+                if (err) {
                     console.log(err);
                 }
             });
@@ -81,11 +83,15 @@ function Home() {
                         passCount++;
                     }
                 }
-                setPassRate(passCount/tempArray.length * 100);
+                setPassRate(passCount / tempArray.length * 100);
                 setEndedProposalCount(tempArray.length);
             }
-        }
+        };
+        getPassRate();
 
+    }, []) //Fill the array with something you want to check
+
+    useEffect(()=>{
         async function getTokenOwners() {
             await Moralis.start({
                 apiKey: connectionDetails.MORALIS_API_KEY,
@@ -97,7 +103,7 @@ function Home() {
                 var response = await Moralis.EvmApi.nft.getNFTOwners({
                     address: connectionDetails.nft_contract_address,
                     chain: connectionDetails.CHAIN_ID,
-                    limit: 50,
+                    //limit: 1,
                     cursor: cursor
                 });
                 response.result.forEach((e) => {
@@ -105,15 +111,12 @@ function Home() {
                         addresses.push(e.ownerOf._value);
                 })
                 cursor = response.data.cursor;
+                await timeout(150);
             } while (cursor !== "" && cursor != null);
             setVoters(addresses);
-        }
-
-        getEvents();
-        getPassRate();
+        };
         getTokenOwners();
-    }, []) //Fill the array with something you want to check
-
+    },[]);
 
     async function getEventStatus(_id) {
         const result = await daoContract.getPastEvents('proposalEnded', {
@@ -121,9 +124,7 @@ function Home() {
             fromBlock: 0,
             toBlock: 'latest'
         }, function (err, events) {
-            if (!err) {
-                console.log(events);
-            } else {
+            if (err) {
                 console.log(err);
             }
         });
@@ -185,7 +186,7 @@ function Home() {
                                     <Widget info={proposalCount - endedProposalCount} title="Ongoing Proposals" />
                                 </div>
                                 <h3>Recent Proposals</h3>
-                            
+
                                 <div style={{ marginTop: "30px" }}>
                                     <Table columnsConfig='10% 70% 20%'
                                         data={proposals}

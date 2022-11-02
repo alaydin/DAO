@@ -1,6 +1,7 @@
 {
     "contract_address" : "0x19c9934FD202C4554ce4686826DAEEFad7cD868b",
-    "nft_contract_address" : "0x929F02708394a6c082daE63904160184e9e83b09",
+    "nft_contract_address" : "0xDaA3812B8FD34D01711105a6DFb669c50ab8fee3",
+    "nft_collection_url": "https://testnets.opensea.io/collection/v3coolnft",
     "ETHEREUM_NETWORK" : "goerli",
     "CHAIN_ID" : "0x5",
     "API_KEY" : "48a2d93d350d402986077a1bc364df64",
